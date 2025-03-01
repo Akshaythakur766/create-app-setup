@@ -1,14 +1,14 @@
 {
   "name": "create-app-setup",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An ClI for App Setup",
   "main": "index.js",
   "bin": {
-    "dummy": "./dist/index.js"
+    "create-app-setup": "dist/index.js"
   },
   "scripts": {
     "ts": "tsc -w",
-    "link-cli": " (chmod +x dist/index.js || true) && npm  link"
+    "link-cli": " (chmod +x dist/index.js || true) && npm link"
   },
   "repository": {
     "type": "git",
@@ -20,13 +20,11 @@
     "url": "https://github.com/Akshaythakur766/create-app-setup/issues"
   },
   "homepage": "https://github.com/Akshaythakur766/create-app-setup#readme",
-  "dependencies": {
-    "chalk": "^5.4.1",
+  "devDependencies": {
+    "@types/node": "^22.13.7",
+    "chalk": "^4.1.2",
     "commander": "^13.1.0",
     "inquirer": "^12.4.2",
     "ora": "^8.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "^22.13.7"
   }
 }
