@@ -1,7 +1,7 @@
 {
   "name": "create-app-setup",
-  "version": "0.0.2",
-  "description": "An ClI for App Setup",
+  "version": "0.0.5",
+  "description": "A CLI tool to quickly set up frontend & backend projects with various frameworks.",
   "main": "index.js",
   "bin": {
     "create-app-setup": "dist/index.js"
@@ -14,17 +14,42 @@
     "type": "git",
     "url": "git+https://github.com/Akshaythakur766/create-app-setup.git"
   },
-  "author": "Akshay Thakur",
-  "license": "MIT",
+  "homepage": "https://github.com/Akshaythakur766/create-app-setup#readme",
   "bugs": {
     "url": "https://github.com/Akshaythakur766/create-app-setup/issues"
   },
-  "homepage": "https://github.com/Akshaythakur766/create-app-setup#readme",
-  "devDependencies": {
-    "@types/node": "^22.13.7",
+  "keywords": [
+    "cli",
+    "setup",
+    "frontend",
+    "backend",
+    "fullstack",
+    "app",
+    "create",
+    "next",
+    "react",
+    "webpack",
+    "vite",
+    "rollup",
+    "husky",
+    "storybook",
+    "configuration",
+    "eslint",
+    "babel",
+    "swc",
+    "automation"
+  ],
+  "license": "MIT",
+  "author": "Akshay Thakur",
+  "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^13.1.0",
+    "cross-spawn": "^7.0.6",
     "inquirer": "^12.4.2",
     "ora": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.6",
+    "@types/node": "^22.13.7"
   }
 }
