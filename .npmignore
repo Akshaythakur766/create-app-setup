@@ -3,3 +3,5 @@ src
 .gitignore
 pnpm-lock.yaml
 tsconfig.json
+License
+scripts

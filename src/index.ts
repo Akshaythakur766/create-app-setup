@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { Command } from "commander";
 import path from "path";
 import { startProcess } from "./config/startProcess";

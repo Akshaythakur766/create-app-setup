@@ -5,10 +5,11 @@ import { chalk } from "./Chalk";
 type CopyTemplateType = {
   sourceDir: string;
   destinationDir: string;
+  projectName?:string
 };
 
 const copyTemplate = (props: CopyTemplateType) => {
-  const { sourceDir, destinationDir } = props;
+  const { sourceDir, destinationDir ,projectName} = props;
 
   //  If Source Directory Does Not Exist
   if (!fs.existsSync(sourceDir)) {
@@ -20,17 +21,18 @@ const copyTemplate = (props: CopyTemplateType) => {
   if (!fs.existsSync(destinationDir)) {
     fs.mkdirSync(destinationDir, { recursive: true });
   } else {
-    console.log(chalk.blue(`📂 Destination already exists: ${destinationDir}`));
+    console.log(chalk.redBright(`📂 ${projectName} already exists`));
+    process.exit(1)
   }
 
   //  Read all files & directories inside the source directory
   const items = fs.readdirSync(sourceDir);
 
   if (items.length === 0) {
-    console.log(chalk.yellow(`⚠️ Warning: No files found  `));
+    console.log(chalk.yellow(`⚠️ Warning: No files found` ,"items",  items));
     return;
   }
-
+ console.log("Going Further")
   items.forEach((item: string) => {
     const sourcePath = path.join(sourceDir, item);
     const destinationPath = path.join(destinationDir, item);

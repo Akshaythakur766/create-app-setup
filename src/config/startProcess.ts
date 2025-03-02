@@ -6,7 +6,10 @@ import { questions } from "../Questions/questions";
 import copyTemplate from "../helper/copyTemplate";
 import spawn from "cross-spawn";
 
-export const startProcess = async (projectName: string, TEMPLATES_DIR: string) => {
+export const startProcess = async (
+  projectName: string,
+  TEMPLATES_DIR: string
+) => {
   console.log(chalk.cyan.bold("\n🚀 Starting Project Setup...\n"));
 
   try {
@@ -21,7 +24,6 @@ export const startProcess = async (projectName: string, TEMPLATES_DIR: string) =
       storybook,
       eslint,
       compiler,
-      
     } = await inquirer.prompt(questions);
 
     // Define the template path based on user selection
@@ -51,7 +53,11 @@ export const startProcess = async (projectName: string, TEMPLATES_DIR: string) =
     );
 
     // Copy the template
-    copyTemplate({ sourceDir: templatePath, destinationDir: destinationPath });
+    copyTemplate({
+      sourceDir: templatePath,
+      destinationDir: destinationPath,
+      projectName,
+    });
 
     // Conditional Configuration Based on User Selection
 
@@ -125,7 +131,9 @@ export const startProcess = async (projectName: string, TEMPLATES_DIR: string) =
         );
       } else {
         console.log(
-          chalk.redBright(`❌ ${packageManager} install failed with code: ${code}`)
+          chalk.redBright(
+            `❌ ${packageManager} install failed with code: ${code}`
+          )
         );
       }
     });

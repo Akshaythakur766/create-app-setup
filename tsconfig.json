@@ -12,6 +12,5 @@
     "skipLibCheck": true,
     "moduleResolution": "node16"
   },
-  "include": ["./src"],
-  "exclude": ["./src/templates" , "dist"]
+  "include": ["./src", "scripts"],
 }
