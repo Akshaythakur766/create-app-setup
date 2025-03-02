@@ -1,7 +1,7 @@
 node_modules
+scripts
 src
 .gitignore
+License
 pnpm-lock.yaml
 tsconfig.json
-License
-scripts

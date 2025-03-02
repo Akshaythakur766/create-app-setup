@@ -5,11 +5,15 @@ import { chalk } from "../helper/Chalk";
 import { questions } from "../Questions/questions";
 import copyTemplate from "../helper/copyTemplate";
 import spawn from "cross-spawn";
-
 export const startProcess = async (
   projectName: string,
   TEMPLATES_DIR: string
 ) => {
+
+  // Dynamic Import for Ora
+  const oraModule = await import("ora");
+  const ora = oraModule.default;   
+  
   console.log(chalk.cyan.bold("\n🚀 Starting Project Setup...\n"));
 
   try {
@@ -47,10 +51,6 @@ export const startProcess = async (
 
     // Define the destination path
     const destinationPath = path.join(process.cwd(), projectName);
-
-    console.log(
-      chalk.blue(`📂 Creating project in: ${chalk.green(destinationPath)}\n`)
-    );
 
     // Copy the template
     copyTemplate({
@@ -120,17 +120,30 @@ export const startProcess = async (
     // Run install using selected package manager
     const installDeps = spawn(packageManager.toLowerCase(), ["install"], {
       cwd: destinationPath,
-      stdio: "inherit",
+      stdio: "pipe",
       shell: true,
     });
+    // Create a spinner with a custom message
+    const spinner = ora(" Installing ...").start();
+    // Capture the output and stop the spinner when the process finishes
+
+    // installDeps.stdout.on("data", (data) => {
+    //   // Optionally, you can log data here if needed
+    //   // For example, if you want to output some specific messages
+    // });
+
+    // installDeps.stderr.on("data", (data) => {
+    //   // Optionally, you can log errors here
+    //   console.error(data.toString());
+    // });
 
     installDeps.on("close", (code) => {
       if (code === 0) {
-        console.log(
+        spinner.succeed(
           chalk.bold.magentaBright("🎉 Setup Complete! Happy Coding! 🚀")
         );
       } else {
-        console.log(
+        spinner.fail(
           chalk.redBright(
             `❌ ${packageManager} install failed with code: ${code}`
           )

@@ -56,14 +56,14 @@ export const questions: any = [
   //   filter: (val: string) => val === "Yes",
   // },
   // Eslint
-  {
-    type: "list",
-    name: "eslint",
-    message: `Would you like to use ${title("ESLint?")} `,
-    choices: ["No", "Yes"],
-    default: "No",
-    filter: (val: string) => val === "Yes",
-  },
+  // {
+  //   type: "list",
+  //   name: "eslint",
+  //   message: `Would you like to use ${title("ESLint?")} `,
+  //   choices: ["No", "Yes"],
+  //   default: "No",
+  //   filter: (val: string) => val === "Yes",
+  // },
   // Husky
   // {
   //   type: "list",

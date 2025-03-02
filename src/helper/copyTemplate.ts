@@ -13,7 +13,7 @@ const copyTemplate = (props: CopyTemplateType) => {
 
   //  If Source Directory Does Not Exist
   if (!fs.existsSync(sourceDir)) {
-    console.log(chalk.red.bold(`❌ Error: Template not found at ${sourceDir}`));
+    console.log(chalk.red.bold(`❌ Error: Template not found `));
     process.exit(1);
   }
 
@@ -29,7 +29,7 @@ const copyTemplate = (props: CopyTemplateType) => {
   const items = fs.readdirSync(sourceDir);
 
   if (items.length === 0) {
-    console.log(chalk.yellow(`⚠️ Warning: No files found` ));
+    // console.log(chalk.yellow(`⚠️ Warning: No files found` ));
     return;
   }
   items.forEach((item: string) => {
