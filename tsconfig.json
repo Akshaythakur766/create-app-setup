@@ -12,5 +12,6 @@
     "skipLibCheck": true,
     "moduleResolution": "node16"
   },
-  "include": ["./src", "scripts"],
+  "include": ["./src"],
+  "exclude": ["./src/templates"]
 }

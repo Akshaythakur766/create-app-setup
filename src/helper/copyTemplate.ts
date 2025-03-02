@@ -29,10 +29,9 @@ const copyTemplate = (props: CopyTemplateType) => {
   const items = fs.readdirSync(sourceDir);
 
   if (items.length === 0) {
-    console.log(chalk.yellow(`⚠️ Warning: No files found` ,"items",  items));
+    console.log(chalk.yellow(`⚠️ Warning: No files found` ));
     return;
   }
- console.log("Going Further")
   items.forEach((item: string) => {
     const sourcePath = path.join(sourceDir, item);
     const destinationPath = path.join(destinationDir, item);

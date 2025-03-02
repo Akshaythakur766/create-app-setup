@@ -8,8 +8,8 @@
   },
   "scripts": {
     "ts": "tsc -w",
-     "build": "node scripts/build.ts",
-    "link-cli": " node scripts/build.ts && (chmod +x dist/index.js || true) && npm link"
+     "build": "node scripts/build.js",
+    "link-cli": " node scripts/build.js && (chmod +x dist/index.js || true) && npm link"
   },
   "repository": {
     "type": "git",
