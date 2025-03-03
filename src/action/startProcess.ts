@@ -5,15 +5,16 @@ import { chalk } from "../helper/Chalk";
 import { questions } from "../Questions/questions";
 import copyTemplate from "../helper/copyTemplate";
 import spawn from "cross-spawn";
+import eslintConfig from "../config/eslint-config";
+import gitignoreConfig from "../config/gitignore-config";
 export const startProcess = async (
   projectName: string,
   TEMPLATES_DIR: string
 ) => {
-
   // Dynamic Import for Ora
   const oraModule = await import("ora");
-  const ora = oraModule.default;   
-  
+  const ora = oraModule.default;
+
   console.log(chalk.cyan.bold("\n🚀 Starting Project Setup...\n"));
 
   try {
@@ -72,10 +73,12 @@ export const startProcess = async (
 
     // ESLint Setup
     if (eslint) {
-      console.log(chalk.cyan("🛠 Setting up ESLint..."));
-      spawn(packageManager.toLowerCase(), ["add", "eslint", "-D"], {
-        cwd: destinationPath,
-        stdio: "inherit",
+      eslintConfig({
+        isTypescript: language?.toLowerCase() == "typescript",
+        isJest: testingTool?.toLowerCase() == "jest",
+        isPrettier: prettier,
+        pkgJson: `./${projectName}/package.json`,
+        destinationPath: `./${projectName}`,
       });
     }
 
@@ -115,6 +118,9 @@ export const startProcess = async (
     //   });
     // }
 
+    //Renaming the GitIgnore
+    gitignoreConfig({path:`${projectName}/gitignore`})
+
     console.log(chalk.yellow("\n📦 Installing dependencies...\n"));
 
     // Run install using selected package manager
@@ -152,6 +158,6 @@ export const startProcess = async (
     });
   } catch (error) {
     // If user exits or any error occurs during prompt
-    console.log(chalk.red("\n❌ Exited the Process"));
+    console.log(chalk.red("\n❌ Exited the Process" , error));
   }
 };

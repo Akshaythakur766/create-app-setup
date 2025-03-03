@@ -1,7 +1,47 @@
+# Ignore dependencies & lock files
 node_modules
-scripts
-src
-.gitignore
-License
 pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Ignore source files (only include compiled output)
+src/
+scripts/
 tsconfig.json
+
+# Explicitly allow everything inside `dist/` and `dist/templates/`
+!dist
+!dist/
+!dist/**
+!dist/templates
+!dist/templates/
+!dist/templates/**
+!dist/templates/next/javascript/**
+!dist/templates/react/javascript/**
+!dist/templates/next/typescript/**
+!dist/templates/react/typescript/**
+
+# Explicitly allow dotfiles
+!dist/templates/**/.gitignore
+!dist/templates/**/.npmrc
+!dist/templates/**/.eslint*
+!dist/templates/**/.prettier*
+!dist/templates/**/.editorconfig
+!dist/templates/**/.env*
+!dist/templates/**/next-env.d.ts
+
+
+
+# Ignore development configs
+.vscode/
+.idea/
+*.log
+.npmrc
+.npm-debug.log
+.eslintrc.*
+.prettierrc.*
+.editorconfig
+
+# Ignore OS-related files
+.DS_Store
+Thumbs.db

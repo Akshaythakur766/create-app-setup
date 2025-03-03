@@ -1,6 +1,8 @@
+#!/usr/bin/env node
+
 import { Command } from "commander";
 import path from "path";
-import { startProcess } from "./config/startProcess";
+import { startProcess } from "./action/startProcess";
 import { chalk } from "./helper/Chalk";
 const program = new Command();
 
