@@ -7,6 +7,7 @@ import copyTemplate from "../helper/copyTemplate";
 import spawn from "cross-spawn";
 import eslintConfig from "../config/eslint-config";
 import gitignoreConfig from "../config/gitignore-config";
+import { huskyConfig } from "../config/husky-config";
 export const startProcess = async (
   projectName: string,
   TEMPLATES_DIR: string
@@ -82,14 +83,16 @@ export const startProcess = async (
       });
     }
 
-    // // Husky Setup
-    // if (husky) {
-    //   console.log(chalk.cyan("🛠 Setting up Husky..."));
-    //   spawn(packageManager.toLowerCase(), ["add", "husky", "-D"], {
-    //     cwd: destinationPath,
-    //     stdio: "inherit",
-    //   });
-    // }
+    // Husky Setup
+    if (husky) {
+      huskyConfig({
+        // pkgJson: `./${projectName}/package.json`,
+        destinationPath,
+        // TEMPLATES_DIR,
+        // projectName,
+        packageManager,
+      });
+    }
 
     // // Testing Tool Setup (e.g., Jest, Cypress)
     // if (testingTool === "jest") {
@@ -119,45 +122,38 @@ export const startProcess = async (
     // }
 
     //Renaming the GitIgnore
-    gitignoreConfig({path:`${projectName}/gitignore`})
+    gitignoreConfig({ path: `${projectName}/gitignore` });
 
-    console.log(chalk.yellow("\n📦 Installing dependencies...\n"));
+    if (packageManager !== "none") {
+      console.log(chalk.yellow("\n📦 Installing dependencies...\n"));
 
-    // Run install using selected package manager
-    const installDeps = spawn(packageManager.toLowerCase(), ["install"], {
-      cwd: destinationPath,
-      stdio: "pipe",
-      shell: true,
-    });
-    // Create a spinner with a custom message
-    const spinner = ora(" Installing ...").start();
-    // Capture the output and stop the spinner when the process finishes
+      // Run install using selected package manager
+      const installDeps = spawn(packageManager.toLowerCase(), ["install"], {
+        cwd: destinationPath,
+        stdio: "pipe",
+        shell: true,
+      });
+      // Create a spinner with a custom message
+      const spinner = ora(" Installing ...").start();
 
-    // installDeps.stdout.on("data", (data) => {
-    //   // Optionally, you can log data here if needed
-    //   // For example, if you want to output some specific messages
-    // });
-
-    // installDeps.stderr.on("data", (data) => {
-    //   // Optionally, you can log errors here
-    //   console.error(data.toString());
-    // });
-
-    installDeps.on("close", (code) => {
-      if (code === 0) {
-        spinner.succeed(
-          chalk.bold.magentaBright("🎉 Setup Complete! Happy Coding! 🚀")
-        );
-      } else {
-        spinner.fail(
-          chalk.redBright(
-            `❌ ${packageManager} install failed with code: ${code}`
-          )
-        );
-      }
-    });
+      installDeps.on("close", (code) => {
+        if (code === 0) {
+          spinner.succeed(
+            chalk.bold.magentaBright("🎉 Setup Complete! Happy Coding! 🚀")
+          );
+        } else {
+          spinner.fail(
+            chalk.redBright(
+              `❌ ${packageManager} install failed with code: ${code}`
+            )
+          );
+        }
+      });
+    } else {
+      chalk.bold.magentaBright("🎉 Setup Complete! Happy Coding! 🚀");
+    }
   } catch (error) {
     // If user exits or any error occurs during prompt
-    console.log(chalk.red("\n❌ Exited the Process" , error));
+    console.log(chalk.red("\n❌ Exited the Process", error));
   }
 };

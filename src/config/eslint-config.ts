@@ -7,7 +7,7 @@ interface EslintConfigType {
   isTypescript?: boolean;
   isJest?: boolean;
   isPrettier?: boolean;
-}
+} 
 
 const eslintConfig = (props: EslintConfigType) => {
   const {
@@ -91,7 +91,7 @@ const eslintConfig = (props: EslintConfigType) => {
   }
 
   // Merge and update package.json dependencies
-  packageJson.devDependencies = {
+  packageJson.devDependencies = { 
     ...packageJson.devDependencies,
     ...eslintDependencies,
   };

@@ -10,7 +10,7 @@ type CopyTemplateType = {
 
 const copyTemplate = (props: CopyTemplateType) => {
   const { sourceDir, destinationDir ,projectName} = props;
-
+  
   //  If Source Directory Does Not Exist
   if (!fs.existsSync(sourceDir)) {
     console.log(chalk.red.bold(`❌ Error: Template not found `));

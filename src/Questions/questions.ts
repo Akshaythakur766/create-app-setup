@@ -65,14 +65,14 @@ export const questions: any = [
     filter: (val: string) => val === "Yes",
   },
   // Husky
-  // {
-  //   type: "list",
-  //   name: "husky",
-  //   message: `Would you like to use ${title("Husky?")} `,
-  //   choices: ["No", "Yes"],
-  //   default: "No",
-  //   filter: (val: string) => val === "Yes",
-  // },
+  {
+    type: "list",
+    name: "husky",
+    message: `Would you like to use ${title("Husky?")} `,
+    choices: ["No", "Yes"],
+    default: "No",
+    filter: (val: string) => val === "Yes",
+  },
   // Testing Tools
   // {
   //   type: "list",
@@ -94,7 +94,7 @@ export const questions: any = [
     type: "list",
     name: "packageManager",
     message: `Choose one ${title("Package Manager")}`,
-    choices: ["NPM", "YARN", "PNPM"],
-    default: "NPM",
+    choices: ["npm", "yarn", "pnpm" ,"bun" ,"none"],
+    default: "npm",
   },
 ];
