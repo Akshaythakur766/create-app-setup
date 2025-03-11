@@ -101,7 +101,6 @@ const eslintConfig = (props: EslintConfigType) => {
     ...packageJson.scripts,
     lint: "eslint . --ext .js,.jsx,.ts,.tsx",
   };
-  console.log({packageJson , isTypescript})
   // Write back the updated package.json
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
   console.log("🚀 ESLint setup completed! Run `npm run lint` to check.");

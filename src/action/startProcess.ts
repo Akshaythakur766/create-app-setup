@@ -8,6 +8,7 @@ import spawn from "cross-spawn";
 import eslintConfig from "../config/eslint-config";
 import gitignoreConfig from "../config/gitignore-config";
 import { huskyConfig } from "../config/husky-config";
+import { prettierConfig } from "../config/prettier-config";
 export const startProcess = async (
   projectName: string,
   TEMPLATES_DIR: string
@@ -63,14 +64,13 @@ export const startProcess = async (
 
     // Conditional Configuration Based on User Selection
 
-    // // Prettier Setup
-    // if (prettier) {
-    //   console.log(chalk.cyan("🛠 Setting up Prettier..."));
-    //   spawn(packageManager.toLowerCase(), ["add", "prettier", "-D"], {
-    //     cwd: destinationPath,
-    //     stdio: "inherit",
-    //   });
-    // }
+    // Prettier Setup
+    if (prettier) {
+      prettierConfig({
+        destinationPath,
+        pkgJson: `./${projectName}/package.json`,
+      });
+    }
 
     // ESLint Setup
     if (eslint) {

@@ -38,14 +38,14 @@ export const questions: any = [
     default: "Javascript",
   },
   // Prettier
-  // {
-  //   type: "list",
-  //   name: "prettier",
-  //   message: `Would you like to use ${title("Prettier?")} `,
-  //   choices: ["No", "Yes"],
-  //   default: "No",
-  //   filter: (val: string) => val === "Yes",
-  // },
+  {
+    type: "list",
+    name: "prettier",
+    message: `Would you like to use ${title("Prettier?")} `,
+    choices: ["No", "Yes"],
+    default: "No",
+    filter: (val: string) => val === "Yes",
+  },
   //Storybook
   // {
   //   type: "list",
