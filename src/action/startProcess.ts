@@ -9,6 +9,7 @@ import eslintConfig from "../config/eslint-config";
 import gitignoreConfig from "../config/gitignore-config";
 import { huskyConfig } from "../config/husky-config";
 import { prettierConfig } from "../config/prettier-config";
+import { turboPackNextConfig } from "../config/turboPack-next-config";
 export const startProcess = async (
   projectName: string,
   TEMPLATES_DIR: string
@@ -31,6 +32,7 @@ export const startProcess = async (
       storybook,
       eslint,
       compiler,
+      turbopack,
     } = await inquirer.prompt(questions);
 
     // Define the template path based on user selection
@@ -94,6 +96,9 @@ export const startProcess = async (
       });
     }
 
+    if (framework === "Next" && turbopack) {
+      turboPackNextConfig({ pkgJson: `./${projectName}/package.json` });
+    }
     // // Testing Tool Setup (e.g., Jest, Cypress)
     // if (testingTool === "jest") {
     //   console.log(chalk.cyan("🛠 Setting up Jest..."));
@@ -124,7 +129,9 @@ export const startProcess = async (
     //Renaming the GitIgnore
     gitignoreConfig({ path: `${projectName}/gitignore` });
 
-    if (packageManager !== "none") {
+
+    // Installing Dependencies
+    if (packageManager !== 'none') {
       console.log(chalk.yellow("\n📦 Installing dependencies...\n"));
 
       // Run install using selected package manager
@@ -150,7 +157,7 @@ export const startProcess = async (
         }
       });
     } else {
-      chalk.bold.magentaBright("🎉 Setup Complete! Happy Coding! 🚀");
+      console.log(chalk.bold.magentaBright("🎉 Setup Complete! Happy Coding! 🚀"));
     }
   } catch (error) {
     // If user exits or any error occurs during prompt

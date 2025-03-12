@@ -66,7 +66,7 @@ const eslintConfig = (props: EslintConfigType) => {
 
   // Write the ESLint config file
   fs.writeFileSync(eslintFilePath, JSON.stringify(eslintConfig, null, 2));
-  console.log(`✅ ESLint config created at: ${eslintFilePath}`);
+  // console.log(`✅ ESLint config created at: ${eslintFilePath}`);
 
   // Read and update package.json
   const packageJsonPath = path.resolve(pkgJson);
@@ -103,7 +103,7 @@ const eslintConfig = (props: EslintConfigType) => {
   };
   // Write back the updated package.json
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-  console.log("🚀 ESLint setup completed! Run `npm run lint` to check.");
+  // console.log("🚀 ESLint setup completed! Run `npm run lint` to check.");
 
 };
 

@@ -29,6 +29,16 @@ export const questions: any = [
   //   filter: (val: string) => val === "Yes",
   //   when: (answers: any) => answers.framework === "Next",
   // },
+  // TurboPack
+  {
+    type: "list",
+    name: "turbopack",
+    message: `Would you like to use ${title("turboPack")} for development `,
+    choices: ["No", "Yes"],
+    default: "No",
+    filter: (val: string) => val === "Yes",
+    when: (answers: any) => answers.framework === "Next",
+  },
   // Language
   {
     type: "list",
@@ -94,7 +104,7 @@ export const questions: any = [
     type: "list",
     name: "packageManager",
     message: `Choose one ${title("Package Manager")}`,
-    choices: ["npm", "yarn", "pnpm" ,"bun" ,"none"],
+    choices: ["npm", "yarn", "pnpm", "bun", "none"],
     default: "npm",
   },
 ];
