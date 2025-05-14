@@ -2,6 +2,29 @@ import { info, title } from "../helper/Chalk";
 
 export const questions: any = [
   // Framework
+
+  // {
+  //   type: "list",
+  //   name: "techEnd",
+  //   message: `Choose the ${title("Tech Stack")}`,
+  //   choices: ["Front-End", "Back-End", "Full-Stack"],
+  //   default: "React",
+  // },
+  // {
+  //   type: "list",
+  //   name: "stack",
+  //   message: `Choose the ${title("Full Stack Type")}`,
+  //   choices: [
+  //     "MERN (MongoDB , Express , React , Node)",
+  //     "MEAN (MongoDB , Express , Angular , Node)",
+  //     "MEVN (MongoDB , Express , Vue , Node)",
+  //     "Jamstack",
+  //     "T3 Stack (Next.js , Tailwind CSS , tRPC ,Prisma , Yup/Zod)",
+  //   ],
+  //   default: "React",
+  //   when: (answers: any) => answers.techEnd === "Full-Stack",
+  // },
+
   {
     type: "list",
     name: "framework",
