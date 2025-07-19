@@ -10,6 +10,7 @@ import gitignoreConfig from "../config/gitignore-config";
 import { huskyConfig } from "../config/husky-config";
 import { prettierConfig } from "../config/prettier-config";
 import { turboPackNextConfig } from "../config/turboPack-next-config";
+import { tailwindCssConfig } from "../config/tailwindCss-config";
 export const startProcess = async (
   projectName: string,
   TEMPLATES_DIR: string
@@ -29,10 +30,9 @@ export const startProcess = async (
       prettier,
       husky,
       testingTool,
-      storybook,
       eslint,
-      compiler,
       turbopack,
+      tailwindCss
     } = await inquirer.prompt(questions);
 
     // Define the template path based on user selection
@@ -57,7 +57,7 @@ export const startProcess = async (
     // Define the destination path
     const destinationPath = path.join(process.cwd(), projectName);
 
-    // Copy the template
+    //** Copy the template */
     copyTemplate({
       sourceDir: templatePath,
       destinationDir: destinationPath,
@@ -66,7 +66,7 @@ export const startProcess = async (
 
     // Conditional Configuration Based on User Selection
 
-    // Prettier Setup
+    //** Prettier Setup */ 
     if (prettier) {
       prettierConfig({
         destinationPath,
@@ -93,12 +93,19 @@ export const startProcess = async (
         // TEMPLATES_DIR,
         // projectName,
         packageManager,
-      });
+    });
     }
 
     if (framework === "Next" && turbopack) {
       turboPackNextConfig({ pkgJson: `./${projectName}/package.json` });
     }
+
+    //**Tailwind Css Setup */
+    if(tailwindCss){
+      tailwindCssConfig({projectName , framework });
+    }
+    //** */
+
     // // Testing Tool Setup (e.g., Jest, Cypress)
     // if (testingTool === "jest") {
     //   console.log(chalk.cyan("🛠 Setting up Jest..."));

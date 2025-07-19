@@ -10,7 +10,9 @@
     "ts": "tsc -w",
     "build": "node scripts/build.js",
     "link-cli": " (chmod +x dist/index.js || true) && npm link",
-    "lint":"eslint ."
+    "unlink-cli":"",
+    "lint":"eslint .",
+    "copy-template":""
   },
   "repository": {
     "type": "git",
