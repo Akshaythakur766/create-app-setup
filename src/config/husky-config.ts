@@ -4,41 +4,38 @@ import copyTemplate from "../helper/copyTemplate";
 import gitignoreConfig from "./gitignore-config";
 import spawn from "cross-spawn";
 interface huskyConfigType {
-  //   pkgJson: string;
   destinationPath: string;
-  //   TEMPLATES_DIR: string;
-  //   projectName?: string;
-  packageManager?: string;
+  projectName: string;
 }
-const executeCommand = (packageManager: string | undefined) => {
-  switch (packageManager?.toLocaleLowerCase()) {
-    case "pnpm":
-      return "pnpm exec husky init";
-    case "bun":
-      return "bunx husky init";
-    default:
-      return "npx husky init";
-  }
-};
-const huskyConfig = (props: huskyConfigType) => {
-  const { packageManager = "npm", destinationPath } = props;
 
+const huskyConfig = (props: huskyConfigType) => {
+  const { destinationPath, projectName } = props;
+
+  // Paths
+  const pkgJsonPath = `./${projectName}/package.json`;
+  // File content
+  const pkgJsonFileContent = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"));
+
+  // New Husky devDependencies
+  const huskyDevDependencies: Record<string, string> = {
+    husky: "^9.1.7",
+  };
+
+  // Add devDependencies
+  pkgJsonFileContent.devDependencies = {
+    ...pkgJsonFileContent.devDependencies,
+    ...huskyDevDependencies,
+  };
+
+  //creating husky configuration
   spawn("npx husky init", {
     cwd: destinationPath,
     stdio: "pipe",
     shell: true,
   });
-  //   const { destinationPath, pkgJson, TEMPLATES_DIR, projectName } = props;
-  //   const huskyFilePath = path.join(destinationPath, ".husky");
-  //   const huskyTemplatePath = path.join(TEMPLATES_DIR, "husky");
-  //   copyTemplate({ sourceDir: huskyTemplatePath, destinationDir: huskyFilePath });
-  //   const packageJsonPath = path.resolve(pkgJson);
-  //   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
-  //   packageJson.scripts = {
-  //     ...packageJson.scripts,
-  //     husky: "prepare",
-  //   };
-  //   gitignoreConfig({ path: `${projectName}/.husky/_/gitignore` });
+
+  // Write files
+  fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJsonFileContent, null, 2));
 };
 
 export { huskyConfig };

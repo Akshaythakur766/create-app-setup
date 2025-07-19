@@ -7,7 +7,7 @@ interface EslintConfigType {
   isTypescript?: boolean;
   isJest?: boolean;
   isPrettier?: boolean;
-} 
+}
 
 const eslintConfig = (props: EslintConfigType) => {
   const {
@@ -18,15 +18,14 @@ const eslintConfig = (props: EslintConfigType) => {
     isTypescript = false,
   } = props;
 
-  // Path to ESLint config file
   const eslintFilePath = path.join(destinationPath, ".eslintrc.json");
 
-  // Define base ESLint config
-  const eslintConfig: Record<string, any> = {
+  const config: Record<string, any> = {
+    root: true,
     env: {
       browser: true,
-      es2021: true,
       node: true,
+      es2021: true,
     },
     extends: ["eslint:recommended"],
     parserOptions: {
@@ -35,76 +34,68 @@ const eslintConfig = (props: EslintConfigType) => {
     },
     rules: {},
     plugins: [],
-    overrides: [
-      {
-        files: ["*.ts", "*.tsx", "*.js", "*.jsx"],
-        excludedFiles: ["node_modules/", "dist/", "build/"],
-      },
-    ],
   };
 
-  // Apply TypeScript-specific rules
+  // ✅ TypeScript support
   if (isTypescript) {
-    eslintConfig.extends.push("plugin:@typescript-eslint/recommended");
-    eslintConfig.parser = "@typescript-eslint/parser";
-    eslintConfig.plugins.push("@typescript-eslint");
+    config.parser = "@typescript-eslint/parser";
+    config.extends.push("plugin:@typescript-eslint/recommended");
+    config.plugins.push("@typescript-eslint");
   }
 
-  // Apply Jest-specific rules
+  // ✅ Jest support
   if (isJest) {
-    eslintConfig.env.jest = true;
-    eslintConfig.extends.push("plugin:jest/recommended");
-    eslintConfig.plugins.push("jest");
+    config.env.jest = true;
+    config.plugins.push("jest");
+    config.extends.push("plugin:jest/recommended");
   }
 
-  // Apply Prettier-specific rules
+  // ✅ Prettier support
   if (isPrettier) {
-    eslintConfig.extends.push("plugin:prettier/recommended");
-    eslintConfig.plugins.push("prettier");
-    eslintConfig.rules["prettier/prettier"] = ["error"];
+    config.extends.push("plugin:prettier/recommended");
+    config.plugins.push("prettier");
+    config.rules["prettier/prettier"] = ["error"];
   }
 
-  // Write the ESLint config file
-  fs.writeFileSync(eslintFilePath, JSON.stringify(eslintConfig, null, 2));
-  // console.log(`✅ ESLint config created at: ${eslintFilePath}`);
+  // Write the config
+  fs.writeFileSync(eslintFilePath, JSON.stringify(config, null, 2));
 
-  // Read and update package.json
+  // Modify package.json
   const packageJsonPath = path.resolve(pkgJson);
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
 
-  // Ensure ESLint dependencies exist
   const eslintDependencies: Record<string, string> = {
-    eslint: "^8.0.0",
+    eslint: "^9.1.0", // ✅ ESLint 9
   };
 
   if (isTypescript) {
-    eslintDependencies["@typescript-eslint/parser"] = "^5.0.0";
-    eslintDependencies["@typescript-eslint/eslint-plugin"] = "^5.0.0";
-  }
-  if (isJest) {
-    eslintDependencies["eslint-plugin-jest"] = "^27.0.0";
-  }
-  if (isPrettier) {
-    eslintDependencies["eslint-plugin-prettier"] = "^5.0.0";
-    eslintDependencies["eslint-config-prettier"] = "^9.0.0";
-    eslintDependencies["prettier"] = "^3.0.0";
+    eslintDependencies["@typescript-eslint/parser"] = "^8.0.1";
+    eslintDependencies["@typescript-eslint/eslint-plugin"] = "^8.0.1";
   }
 
-  // Merge and update package.json dependencies
-  packageJson.devDependencies = { 
+  if (isJest) {
+    eslintDependencies["eslint-plugin-jest"] = "^27.6.0";
+  }
+
+  if (isPrettier) {
+    eslintDependencies["eslint-plugin-prettier"] = "^5.0.1";
+    eslintDependencies["eslint-config-prettier"] = "^9.1.0";
+    eslintDependencies["prettier"] = "^3.3.1";
+  }
+
+  // Add to devDependencies
+  packageJson.devDependencies = {
     ...packageJson.devDependencies,
     ...eslintDependencies,
   };
 
-  // Ensure lint script is added
+  // Add lint script
   packageJson.scripts = {
     ...packageJson.scripts,
     lint: "eslint . --ext .js,.jsx,.ts,.tsx",
   };
-  // Write back the updated package.json
-  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-  // console.log("🚀 ESLint setup completed! Run `npm run lint` to check.");
 
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 };
 
 export default eslintConfig;

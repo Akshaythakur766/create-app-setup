@@ -11,6 +11,7 @@ import { huskyConfig } from "../config/husky-config";
 import { prettierConfig } from "../config/prettier-config";
 import { turboPackNextConfig } from "../config/turboPack-next-config";
 import { tailwindCssConfig } from "../config/tailwindCss-config";
+import { JavascriptTemplateName, TypescriptTemplateName } from "../helper/constants/templateName";
 export const startProcess = async (
   projectName: string,
   TEMPLATES_DIR: string
@@ -25,7 +26,7 @@ export const startProcess = async (
     // Ask user questions
     const {
       framework,
-      language,
+      typescript,
       packageManager,
       prettier,
       husky,
@@ -39,7 +40,7 @@ export const startProcess = async (
     const templatePath = path.join(
       TEMPLATES_DIR,
       framework.toLowerCase(),
-      language.toLowerCase()
+      typescript ? TypescriptTemplateName : JavascriptTemplateName
     );
 
     // Check if the selected template exists
@@ -77,7 +78,7 @@ export const startProcess = async (
     // ESLint Setup
     if (eslint) {
       eslintConfig({
-        isTypescript: language?.toLowerCase() == "typescript",
+        isTypescript: typescript,
         isJest: testingTool?.toLowerCase() == "jest",
         isPrettier: prettier,
         pkgJson: `./${projectName}/package.json`,
@@ -88,11 +89,8 @@ export const startProcess = async (
     // Husky Setup
     if (husky) {
       huskyConfig({
-        // pkgJson: `./${projectName}/package.json`,
         destinationPath,
-        // TEMPLATES_DIR,
-        // projectName,
-        packageManager,
+        projectName,
     });
     }
 

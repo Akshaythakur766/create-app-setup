@@ -30,7 +30,7 @@ export const questions: any = [
     name: "framework",
     message: `Choose the ${title("Framework")}`,
     choices: ["Next", "React"],
-    default: "React",
+    default: "Next",
   },
   // App Router in Next js
   // {
@@ -52,29 +52,20 @@ export const questions: any = [
   //   filter: (val: string) => val === "Yes",
   //   when: (answers: any) => answers.framework === "Next",
   // },
-  // TurboPack
+
+  // typescript
   {
     type: "list",
-    name: "turbopack",
-    message: `Would you like to use ${title("turboPack")} for development `,
+    name: "typescript",
+    message: `Would you like to use ${title("Typescript")}?`,
     choices: ["Yes", "No"],
     default: "Yes",
     filter: (val: string) => val === "Yes",
-    when: (answers: any) => answers.framework === "Next",
   },
-  // Language
-  {
-    type: "list",
-    name: "language",
-    message: `Choose the ${title("Language")}`,
-    choices: ["Javascript", "Typescript"],
-    default: "Javascript",
-  },
-  // Prettier
   {
     type: "list",
     name: "prettier",
-    message: `Would you like to use ${title("Prettier?")} `,
+    message: `Would you like to use ${title("Prettier")}?`,
     choices: ["Yes", "No"],
     default: "Yes",
     filter: (val: string) => val === "Yes",
@@ -92,7 +83,7 @@ export const questions: any = [
   {
     type: "list",
     name: "eslint",
-    message: `Would you like to use ${title("ESLint?")} `,
+    message: `Would you like to use ${title("ESLint")}?`,
     choices: ["Yes", "No"],
     default: "Yes",
     filter: (val: string) => val === "Yes",
@@ -101,15 +92,25 @@ export const questions: any = [
   {
     type: "list",
     name: "husky",
-    message: `Would you like to use ${title("Husky?")} `,
+    message: `Would you like to use ${title("Husky")}?`,
     choices: ["Yes", "No"],
     default: "No",
     filter: (val: string) => val === "Yes",
   },
+  // TurboPack
+  {
+    type: "list",
+    name: "turbopack",
+    message: `Would you like to use ${title("turboPack")} for development `,
+    choices: ["Yes", "No"],
+    default: "Yes",
+    filter: (val: string) => val === "Yes",
+    when: (answers: any) => answers.framework === "Next",
+  },
   {
     type: "list",
     name: "tailwindCss",
-    message: `Would you like to use ${title("Tailwind CSS")} `,
+    message: `Would you like to use ${title("Tailwind CSS")}?`,
     choices: ["Yes", "No"],
     default: "Yes",
     filter: (val: string) => val === "Yes",
