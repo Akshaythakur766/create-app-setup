@@ -10,7 +10,7 @@
     "ts": "tsc -w",
     "build": "node scripts/build.js",
     "link-cli": " (chmod +x dist/index.js || true) && npm link",
-    "unlink-cli": "",
+    "unlink-cli": "npm -g unlink create-app-setup",
     "lint": "eslint .",
     "copy-template": ""
   },
