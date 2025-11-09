@@ -11,7 +11,14 @@ import { huskyConfig } from "../config/husky-config";
 import { prettierConfig } from "../config/prettier-config";
 import { turboPackNextConfig } from "../config/turboPack-next-config";
 import { tailwindCssConfig } from "../config/tailwindCss-config";
-import { JavascriptTemplateName, TypescriptTemplateName } from "../helper/constants/templateName";
+import {
+  AppRouterTemplateName,
+  JavascriptTemplateName,
+  ModuleCssTemplateName,
+  PageRouterTemplateName,
+  TailwindCssTemplateName,
+  TypescriptTemplateName,
+} from "../helper/constants/templateName";
 export const startProcess = async (
   projectName: string,
   TEMPLATES_DIR: string
@@ -26,21 +33,31 @@ export const startProcess = async (
     // Ask user questions
     const {
       framework,
-      typescript,
+      // typescript,
+      appRouter,
       packageManager,
       prettier,
       husky,
       testingTool,
       eslint,
       turbopack,
-      tailwindCss
+      tailwindCss,
     } = await inquirer.prompt(questions);
+
+    //** Currently Building for typescript only so its always true */
+    const typescript = true;
 
     // Define the template path based on user selection
     const templatePath = path.join(
       TEMPLATES_DIR,
+      //framework
       framework.toLowerCase(),
-      typescript ? TypescriptTemplateName : JavascriptTemplateName
+      // typescript
+      typescript ? TypescriptTemplateName : JavascriptTemplateName,
+      // app-router
+      appRouter ? AppRouterTemplateName : PageRouterTemplateName,
+      // styling
+      tailwindCss ? TailwindCssTemplateName : ModuleCssTemplateName
     );
 
     // Check if the selected template exists
@@ -67,7 +84,7 @@ export const startProcess = async (
 
     // Conditional Configuration Based on User Selection
 
-    //** Prettier Setup */ 
+    //** Prettier Setup */
     if (prettier) {
       prettierConfig({
         destinationPath,
@@ -91,7 +108,7 @@ export const startProcess = async (
       huskyConfig({
         destinationPath,
         projectName,
-    });
+      });
     }
 
     if (framework === "Next" && turbopack) {
@@ -99,9 +116,9 @@ export const startProcess = async (
     }
 
     //**Tailwind Css Setup */
-    if(tailwindCss){
-      tailwindCssConfig({projectName , framework });
-    }
+    // if (tailwindCss) {
+    //   tailwindCssConfig({ projectName, framework });
+    // }
     //** */
 
     // // Testing Tool Setup (e.g., Jest, Cypress)
@@ -134,9 +151,8 @@ export const startProcess = async (
     //Renaming the GitIgnore
     gitignoreConfig({ path: `${projectName}/gitignore` });
 
-
     // Installing Dependencies
-    if (packageManager !== 'none') {
+    if (packageManager !== "none") {
       console.log(chalk.yellow("\n📦 Installing dependencies...\n"));
 
       // Run install using selected package manager
@@ -162,7 +178,9 @@ export const startProcess = async (
         }
       });
     } else {
-      console.log(chalk.bold.magentaBright("🎉 Setup Complete! Happy Coding! 🚀"));
+      console.log(
+        chalk.bold.magentaBright("🎉 Setup Complete! Happy Coding! 🚀")
+      );
     }
   } catch (error) {
     // If user exits or any error occurs during prompt

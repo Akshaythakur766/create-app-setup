@@ -29,19 +29,19 @@ export const questions: any = [
     type: "list",
     name: "framework",
     message: `Choose the ${title("Framework")}`,
-    choices: ["Next", "React"],
+    choices: ["Next"],
     default: "Next",
   },
   // App Router in Next js
-  // {
-  //   type: "list",
-  //   name: "AppRouter",
-  //   message: `Would you like to use ${title("AppRouter?")} `,
-  //   choices: ["No", "Yes"],
-  //   default: "Yes",
-  //   filter: (val: string) => val === "Yes",
-  //   when: (answers: any) => answers.framework === "Next",
-  // },
+  {
+    type: "list",
+    name: "appRouter",
+    message: `Would you like to use ${title("AppRouter?")} `,
+    choices: ["No", "Yes"],
+    default: "Yes",
+    filter: (val: string) => val === "Yes",
+    when: (answers: any) => answers.framework === "Next",
+  },
   // Source Directory
   // {
   //   type: "list",
@@ -54,14 +54,14 @@ export const questions: any = [
   // },
 
   // typescript
-  {
-    type: "list",
-    name: "typescript",
-    message: `Would you like to use ${title("Typescript")}?`,
-    choices: ["Yes", "No"],
-    default: "Yes",
-    filter: (val: string) => val === "Yes",
-  },
+  // {
+  //   type: "list",
+  //   name: "typescript",
+  //   message: `Would you like to use ${title("Typescript")}?`,
+  //   choices: ["Yes", "No"],
+  //   default: "Yes",
+  //   filter: (val: string) => val === "Yes",
+  // },
   {
     type: "list",
     name: "prettier",

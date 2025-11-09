@@ -1,0 +1,157 @@
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #020617, #0f172a, #020617);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background grid */
+.gridBg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+}
+
+/* Animated gradient blobs */
+.blob {
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.3;
+  animation: blobMove 10s infinite;
+}
+
+.blob1 {
+  top: 0;
+  left: 25%;
+  background: linear-gradient(to bottom right, #60a5fa, #22d3ee);
+}
+
+.blob2 {
+  top: 0;
+  right: 25%;
+  background: linear-gradient(to bottom right, #a855f7, #ec4899);
+  animation-delay: 2s;
+}
+
+.blob3 {
+  bottom: 0;
+  left: 50%;
+  background: linear-gradient(to bottom right, #f472b6, #fb7185);
+  animation-delay: 4s;
+}
+
+@keyframes blobMove {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(50px, -30px) scale(1.1);
+  }
+  66% {
+    transform: translate(-30px, 20px) scale(0.9);
+  }
+}
+
+/* Inner content */
+.content {
+  position: relative;
+  z-index: 10;
+  padding: 4rem 1.5rem;
+  max-width: 80rem;
+  margin: 5rem auto;
+}
+
+/* Hero section */
+.hero {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+}
+
+.titleGradient {
+  background: linear-gradient(to right, #60a5fa, #c084fc);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 1.5rem;
+  max-width: 40rem;
+  margin: 1rem auto 0 auto;
+}
+
+/* Features */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.card {
+  background: rgba(15, 23, 42, 0.5);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(51, 65, 85, 0.8);
+  transform: translateY(-4px);
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.15);
+}
+
+.iconBox {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .iconBox {
+  transform: scale(1.1);
+}
+
+.iconBlue {
+  background: linear-gradient(to bottom right, #3b82f6, #2563eb);
+}
+
+.iconPurple {
+  background: linear-gradient(to bottom right, #a855f7, #9333ea);
+}
+
+.iconPink {
+  background: linear-gradient(to bottom right, #ec4899, #db2777);
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.75rem;
+}
+
+.cardText {
+  color: #94a3b8;
+  line-height: 1.6;
+}

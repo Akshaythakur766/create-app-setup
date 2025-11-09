@@ -57,7 +57,6 @@ const tailwindCssConfig = ({ projectName, framework }: TailwindCssInterface) => 
   fs.writeFileSync(globalStyleFilePath, styleFileContent);
   fs.writeFileSync(postCssConfigPath, postCssConfigContent);
 
-  console.log(`✅ Tailwind CSS v4 configured successfully for ${framework} in ${projectName}`);
 };
 
 export { tailwindCssConfig };
